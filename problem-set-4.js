@@ -56,6 +56,7 @@ var addNumbers = function() {
 	}
 
 	console.log("totalCount: " + totalCount);
+	return totalCount;
 };
 
 //addNumbers();
@@ -69,5 +70,40 @@ var longestWord = function() {
 	return largestWord;
 };
 
-longestWord();
+//longestWord();
 
+var averageStringNumbers = function() {
+	var wordArray = process.argv.slice(2);
+	var totalCount = addNumbers();
+	var totalCountWords = countNumberLetters( wordArray );
+	var resultRough = totalCount / totalCountWords;
+	var result = Math.ceil(resultRough);
+	console.log('Result: ' + result);
+	return result;
+};
+
+var countNumberLetters = function(inArray) {
+
+	var totalCountWords = 0;
+	var alphabetString = 'abcdefghijklmnopqrstuvwxyz';
+	var alphabetStringUpper = alphabetString.toUpperCase();
+	var checkAlphaStringTotal = alphabetString + alphabetStringUpper;
+
+	for(var i=0; i < inArray.length; i++) {
+
+		var currentWordArray = inArray[ i ].split('');
+
+		for(var j=0; j < currentWordArray.length; j++) {
+
+			var currentLetter = currentWordArray[ j ];
+			var isNumber = findIfElementIsNumber( currentLetter );
+
+			if(isNumber === false && checkAlphaStringTotal.indexOf(currentLetter) > -1) {
+				totalCountWords += 1;				
+			}
+		}
+	}
+	return totalCountWords;
+};
+
+averageStringNumbers();
